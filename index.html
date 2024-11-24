@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera Activation with MindAR.js</title>
-    <!-- A-Frame Library -->
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <!-- MindAR.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@0.1.6/dist/aframe-mindar.js"></script>
-  </head>
-  <body style="margin: 0; overflow: hidden;">
-    <!-- MindAR Scene -->
-    <a-scene mindar="imageTargetSrc: ./scene.mind;" embedded>
-      <!-- Kamera aktivieren -->
-      <a-camera position="0 0 0" look-controls></a-camera>
+    <title>WebAR - Natural Image Marker</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+
+    <!-- AR.js Szene -->
+    <a-scene embedded arjs>
+        <!-- Natural Image Marker -->
+        <a-nft 
+            type="nft"
+            url="markers/your-marker-image" 
+            smooth="true" 
+            smoothCount="10" 
+            smoothTolerance="0.01" 
+            smoothThreshold="5">
+            <!-- 3D-Modell -->
+            <a-entity 
+                gltf-model="models/your-model.glb"
+                position="0 0 0"
+                scale="0.5 0.5 0.5"
+                rotation="0 0 0">
+            </a-entity>
+        </a-nft>
+        
+        <!-- Kamera -->
+        <a-entity camera></a-entity>
     </a-scene>
-  </body>
+
+</body>
 </html>
