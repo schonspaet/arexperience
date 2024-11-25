@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebAR 3D Model</title>
+  <!-- Local A-Frame -->
+  <script src="./libs/aframe.min.js"></script>
+  <!-- Local MindAR -->
+  <script src="./libs/mindar-image-aframe.prod.js"></script>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    #ar-container { width: 100vw; height: 100vh; position: relative; }
+  </style>
+</head>
+<body>
+  <div id="ar-container">
+    <a-scene mindar-image="imageTargetSrc: ./marker.mind" embedded color-space="sRGB" vr-mode-ui="false" device-orientation-permission-ui="true">
+      <!-- AR Camera -->
+      <a-camera position="0 0 0" look-controls mindar-image-target></a-camera>
+
+      <!-- Marker and 3D Model -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model 
+          src="./test.glb" 
+          position="0 0 0" 
+          scale="0.1 0.1 0.1">
+        </a-gltf-model>
+      </a-entity>
+    </a-scene>
+  </div>
+</body>
+</html>
