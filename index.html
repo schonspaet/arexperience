@@ -18,8 +18,13 @@
   <div id="ar-container">
     <a-scene mindar-image="imageTargetSrc: ./targets.mind" embedded color-space="sRGB">
       <!-- AR Camera -->
-      <a-camera position="0 0 0" look-controls mindar-image-target></a-camera>
-
+     <a-camera
+        position="0 0 0"
+        look-controls="enabled: false"
+        cursor="fuse: false; rayOrigin: mouse;"
+        raycaster="far: 10000; objects: .clickable"
+        id="camera"
+      ></a-camera>
       <!-- Marker and 3D Model -->
       <a-entity mindar-image-target="targetIndex: 0">
         <a-gltf-model 
