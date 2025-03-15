@@ -1,0 +1,26 @@
+{
+  "default": {
+    "title": "Willkommen zur AR-Erfahrung",
+    "description": "Nutzen Sie Ihr Gerät, um ein AR-Modell zu entdecken. Sobald ein Modell erkannt wird, erhalten Sie hier Informationen dazu."
+  },
+  "0": {
+    "title": "Cyberbike Model",
+    "description": "Das Cyberbike ist ein futuristisches Fahrzeug, das innovative Technologie und Design vereint. Aktivieren Sie den Inspection-Mode, um Details wie die Energiequelle und das Steuerungssystem zu erkunden."
+  },
+  "1": {
+    "title": "Planetary System Model",
+    "description": "Das Planetary System Model zeigt die komplexe Struktur und Dynamik eines futuristischen Sonnensystems. Nutzen Sie den Inspection-Mode, um die Planetenbahnen und deren spezielle Eigenschaften näher zu betrachten."
+  },
+  "2": {
+    "title": "Energy Model",
+    "description": "Das Energy Model repräsentiert eine hochmoderne Energieinfrastruktur, die auf erneuerbaren Ressourcen basiert. Aktivieren Sie den Inspection-Mode, um die Details der Energieerzeugung und -speicherung zu sehen."
+  },
+  "3": {
+    "title": "Spacecar Model",
+    "description": "Das Spacecar ist ein schnelles und effizientes Transportmittel für interstellare Reisen. Mit dem Inspection-Mode können Sie Details wie die Antriebssysteme und die Passagierkabine erkunden."
+  },
+  "4": {
+    "title": "Planet D Model",
+    "description": "Das Planet D Model zeigt eine künstlerische Darstellung eines terraformierten Planeten. Aktivieren Sie den Inspection-Mode, um Details wie Städte, natürliche Ressourcen und die Atmosphäre zu entdecken."
+  }
+}

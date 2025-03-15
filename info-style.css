@@ -1,0 +1,103 @@
+/* 📌 Info-Overlay */
+#info-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+   
+    z-index: 300; /* Über allem */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255, 171, 164, 0.8);
+
+
+}
+
+#info-overlay.active {
+    display: flex;
+}
+
+.overlay-content {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px); 
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    width: 80%;
+    max-width: 400px;
+}
+
+.overlay-content h2 {
+    margin-bottom: 10px;
+    font-size: 14pt;
+}
+
+.overlay-content p {
+    margin-bottom: 15px;
+    font-size: 7pt;
+}
+
+.overlay-content button {
+    padding: 10px;
+    background:rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.overlay-content button:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: #ff36b5;
+
+}
+
+/* 📌 Info-Button mit Glasmorphism */
+#info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#info-button {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px) brightness(1.1);
+
+    border-radius: 25px 10px 25px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3), 0 4px 10px rgba(70, 70, 70, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#info-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.info-icon {
+    font-size: 1.8em;
+    font-weight: bold;
+    font-family: '500', sans-serif;
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.info-text {
+    font-size: 7pt;
+    font-family: '500', sans-serif;
+    color: white;
+    text-align: center;
+}
