@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./libs/mindar-image-aframe.prod.js"></script>
+    <script src="./libs/aframe-v1.6.0.min.js"></script>
+    <script src="./libs/mindar-face-aframe.prod.js"></script>
+    <script>
+        AFRAME.registerComponent('look-at', {
+      schema: { type: 'selector' },
+    
+      init: function () {},
+    
+      tick: function () {
+        this.el.object3D.lookAt(this.data.object3D.position)
+      }
+    })
+    
+        </script>
+  </head>
+  <body>
+    <a-scene
+    mindar-image="imageTargetSrc: ./targets.mind;"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+  >
+    <a-assets>
+<img id="asset0" src="./asset0.jpg" alt="asset0.jpg" />
+<img id="asset1" src="./asset1.jpg" alt="asset1.jpg" />
+<img id="asset2" src="./asset2.jpg" alt="asset2.jpg" />
+<a-asset-item id="model" src="./truck.glb"></a-asset-item>
+<a-asset-item id="cover" src="./cover.glb"></a-asset-item>
+<a-asset-item id="cyber" src="./cyber.glb"></a-asset-item>
+<a-asset-item id="solar" src="./solar.glb"></a-asset-item>
+<a-asset-item id="spacecar" src="./spacecar.glb"></a-asset-item>
+<a-asset-item id="energy" src="./energy.glb"></a-asset-item>
+<a-asset-item id="faces" src="./faces.glb"></a-asset-item>
+<a-asset-item id="planetsystem" src="./planetsystem.glb"></a-asset-item>
+<a-asset-item id="earth_n" src="./earth_n.glb"></a-asset-item>
+<a-asset-item id="earth_d" src="./earth_d.glb"></a-asset-item>
+<a-asset-item id="earth_h" src="./earth_h.glb"></a-asset-item>
+<a-asset-item id="ad_shoe" src="./earth_h.glb"></a-asset-item>
+
+
+    </a-assets>
+    <a-camera
+      position="0 0 0"
+      look-controls="enabled: false"
+      cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="far: 10000; objects: .clickable"
+      id="camera"
+    ></a-camera>
+<a-entity mindar-image-target="targetIndex: 0" id="entity0">
+
+       <a-entity
+          position="0 0 0"
+        rotation="0 0 0"
+       scale="1 1 1"
+       gltf-model="#model"
+       ></a-entity>
+
+</a-entity>
+<a-entity mindar-image-target="targetIndex: 1" id="entity1">
+<a-plane
+        position="0 0 0"
+        rotation="0 0 0"
+        width="1"
+        height="1"
+        id="plane1"
+        color="#ffffff"
+        src="#asset1"  
+      ></a-plane>
+</a-entity>
+<a-entity mindar-image-target="targetIndex: 2" id="entity2">
+<a-plane
+        position="0 0 0"
+        rotation="0 0 0"
+        width="1"
+        height="1"
+        id="plane2"
+        color="#ffffff"
+        src="#asset2"  
+      ></a-plane>
+</a-entity>
+
+</a-scene>
+  </body>
+</html>

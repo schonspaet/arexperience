@@ -1,0 +1,68 @@
+/* Container für die kleine Scan-Animation */
+.reinit-container {
+    position: relative;
+    width: 50px; /* Klein */
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+/* Kleinere Punkte für den Mini-Ring */
+.mini-point {
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.9);
+    animation: pulse-mini 1.2s infinite alternate;
+  }
+  
+  /* Feine Animation für die kleinen Punkte */
+  @keyframes pulse-mini {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.3);
+      opacity: 1;
+    }
+  }
+  
+  /* Re-Initialize Button */
+  #reinitialize {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  #reinitialize:hover .reinit-container {
+    transform: scale(1.1);
+  }
+  #reinit-animation {
+    position: relative;
+    width: 50px;  /* Größe des Rings */
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: rotate-mini 60s linear infinite; /* 🔄 Endlose Rotation */
+  }
+  
+  /* Keyframe für Rotation */
+  @keyframes rotate-mini {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
