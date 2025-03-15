@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("info-button").addEventListener("click", () => {
         Haptics.tapFeedback();
         Haptics.showFeedback();
-        fetch("./JSON/info.json")
+        fetch("./json/info.json")
             .then((response) => response.json())
             .then((data) => {
                 let info = data[currentModelIndex] || data["default"]; // Fallback auf Standard-Text

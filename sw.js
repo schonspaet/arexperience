@@ -81,8 +81,9 @@ const ASSETS_TO_CACHE = [
   "./tracking/targets.mind",
 
   // JSON-Daten für Modelle
-  "./JSON/info.json",
-  "./JSON/manifest.json",
+  "./json/info.json",
+  "./json/manifest.json",
+  "./json/models.json",
 ];
 
 // INSTALL: Cache alle wichtigen Dateien
