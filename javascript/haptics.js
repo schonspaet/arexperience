@@ -65,7 +65,7 @@ function playSoundThenNavigate(targetURL) {
     
     setTimeout(() => {
         window.location.href = targetURL;
-    }, 30000); // 300ms warten, damit der Sound hörbar ist
+    }, 100); // 300ms warten, damit der Sound hörbar ist
 }
 
 console.log("✅ Haptics.js (Sound aus assets/sound/) geladen!");

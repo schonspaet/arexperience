@@ -3,27 +3,27 @@
   "name": "Retrofuturism",
   "short_name": "AR-Portal",
   "description": "Erlebe Augmented Reality in einer futuristischen Umgebung.",
-  "id": "/retro/index.html",
-  "start_url": "/retro/index.html",
+  "id": "/index.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#FFABA4",
   "icons": [
     {
-      "src": "/retro/assets/icons/favicon-512x512.png",
+      "src": "/assets/icons/favicon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/retro/assets/icons/favicon-192x192.png",
+      "src": "/assets/icons/favicon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/retro/assets/icons/apple-touch-icon.png",
+      "src": "/assets/icons/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
@@ -32,13 +32,13 @@
   ],  
 "screenshots": [
   {
-    "src": "/retro/assets/screenshots/screenshot1.png",
+    "src": "/assets/screenshots/screenshot1.png",
     "sizes": "1080x1920",
     "type": "image/png",
     "form_factor": "narrow"
   },
   {
-    "src": "/retro/assets/screenshots/screenshot2.png",
+    "src": "/assets/screenshots/screenshot2.png",
     "sizes": "1920x1080",
     "type": "image/png",
     "form_factor": "wide"

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // JSON-Daten für Modellnamen laden
-     fetch("/retro/JSON/models.json")
+     fetch("/JSON/models.json")
         .then(response => response.json())
         .then(data => {
         modelNames = data;
