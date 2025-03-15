@@ -1,88 +1,88 @@
 const CACHE_NAME = "static-v4";
 const ASSETS_TO_CACHE = [
   // HTML-Seiten
-  "/index.html",
-  "/hauptseite.html",
-  "/impressum.html",
+  "./index.html",
+  "./hauptseite.html",
+  "./impressum.html",
 
   // CSS
-  "/style.css",
-  "/main-style.css",
-  "/reinitialize_animation.css",
-  "/inspectionmode.css",
-  "/info-style.css",
+  "./style.css",
+  "./main-style.css",
+  "./reinitialize_animation.css",
+  "./inspectionmode.css",
+  "./info-style.css",
 
   // JavaScript-Dateien
-  "/javascript/app.js",
-  "/javascript/scan-animation.js",
-  "/javascript/sensor-permission.js",
-  "/javascript/info-handler.js",
-  "/javascript/reinitialize_animation.js",
-  "/javascript/inspectionmode.js",
-  "/javascript/haptics.js",
-  "/javascript/background-music.js",
+  "./javascript/app.js",
+  "./javascript/scan-animation.js",
+  "./javascript/sensor-permission.js",
+  "./javascript/info-handler.js",
+  "./javascript/reinitialize_animation.js",
+  "./javascript/inspectionmode.js",
+  "./javascript/haptics.js",
+  "./javascript/background-music.js",
 
 
   // Bibliotheken
-  "/libs/v1_7/aframe-v1.7.0.min.js",
-  "/libs/v1_7/mindar-image-aframe.prod.js",
-  "/libs/v1_7/mindar-face-aframe.prod.js",
-  "/libs/v1_6/aframe-v1.6.0.min.js",
-  "/libs/v1_6/mindar-image-aframe.prod.js",
-  "/libs/v1_6/mindar-face-aframe.prod.js",
+  "./libs/v1_7/aframe-v1.7.0.min.js",
+  "./libs/v1_7/mindar-image-aframe.prod.js",
+  "./libs/v1_7/mindar-face-aframe.prod.js",
+  "./libs/v1_6/aframe-v1.6.0.min.js",
+  "./libs/v1_6/mindar-image-aframe.prod.js",
+  "./libs/v1_6/mindar-face-aframe.prod.js",
 
   // Sounds
-  "/assets/sounds/abbruch1.wav",
-  "/assets/sounds/abbruch2.wav",
-  "/assets/sounds/background1.wav",
-  "/assets/sounds/background2.wav",
-  "/assets/sounds/background3.wav",
-  "/assets/sounds/click.wav",
-  "/assets/sounds/close.wav",
-  "/assets/sounds/error.wav",
-  "/assets/sounds/open.wav",
-  "/assets/sounds/show.wav",
-  "/assets/sounds/success.wav",
+  "./assets/sounds/abbruch1.wav",
+  "./assets/sounds/abbruch2.wav",
+  "./assets/sounds/background1.wav",
+  "./assets/sounds/background2.wav",
+  "./assets/sounds/background3.wav",
+  "./assets/sounds/click.wav",
+  "./assets/sounds/close.wav",
+  "./assets/sounds/error.wav",
+  "./assets/sounds/open.wav",
+  "./assets/sounds/show.wav",
+  "./assets/sounds/success.wav",
 
   // Icons & Favicon
-  "/assets/icons/favicon-16x16.png",
-  "/assets/icons/favicon-32x32.png",
-  "/assets/icons/favicon-192x192.png",
-  "/assets/icons/apple-touch-icon.png",
+  "./assets/icons/favicon-16x16.png",
+  "./assets/icons/favicon-32x32.png",
+  "./assets/icons/favicon-192x192.png",
+  "./assets/icons/apple-touch-icon.png",
 
   //Screenshots
-  "/assets/screenshots/screenshot1.png",
-  "/assets/screenshots/screenshot2.png",
+  "./assets/screenshots/screenshot1.png",
+  "./assets/screenshots/screenshot2.png",
 
   // Bilder & Hintergrundgrafiken
-  "/assets/images/bg_start.webp",
+  "./assets/images/bg_start.webp",
 
   // Fonts
-  "/assets/fonts/orbitron-v31-latin-800.woff2",
-  "/assets/fonts/orbitron-v31-latin-500.woff2",
-  "/assets/fonts/orbitron-v31-latin-regular.woff2",
+  "./assets/fonts/orbitron-v31-latin-800.woff2",
+  "./assets/fonts/orbitron-v31-latin-500.woff2",
+  "./assets/fonts/orbitron-v31-latin-regular.woff2",
 
   // 3D-Modelle
-  "/assets/models/planetsystem.glb",
-  "/assets/models/energy.glb",
-  "/assets/models/flugzeug.glb",
-  "/assets/models/planet_normal.glb",
-  "/assets/models/planet_zerstoert.glb",
-  "/assets/models/planet_krank.glb",
-  "/assets/models/maske1.glb",
-  "/assets/models/maske2.glb",
-  "/assets/models/cyber.glb",
-  "/assets/models/solar.glb",
-  "/assets/models/cover.glb",
-  "/assets/models/scans.glb",
+  "./assets/models/planetsystem.glb",
+  "./assets/models/energy.glb",
+  "./assets/models/flugzeug.glb",
+  "./assets/models/planet_normal.glb",
+  "./assets/models/planet_zerstoert.glb",
+  "./assets/models/planet_krank.glb",
+  "./assets/models/maske1.glb",
+  "./assets/models/maske2.glb",
+  "./assets/models/cyber.glb",
+  "./assets/models/solar.glb",
+  "./assets/models/cover.glb",
+  "./assets/models/scans.glb",
 
 
   // Tracking-Dateien für MindAR
-  "/tracking/targets.mind",
+  "./tracking/targets.mind",
 
   // JSON-Daten für Modelle
-  "/JSON/info.json",
-  "/JSON/manifest.json",
+  "./JSON/info.json",
+  "./JSON/manifest.json",
 ];
 
 // INSTALL: Cache alle wichtigen Dateien
@@ -151,7 +151,7 @@ self.addEventListener("fetch", (event) => {
                   return networkResponse;
               });
           }).catch(() => {
-              return caches.match("/index.html");
+              return caches.match("./index.html");
           });
       })
   );
