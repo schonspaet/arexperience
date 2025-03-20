@@ -58,7 +58,7 @@
   
   /* 🛠 Text für den Inspection Mode */
   #inspection-mode span {
-    font-size: 14px;
+    font-size: 7pt;
     font-family: '500', sans-serif;
     color: white;
     margin-right: 10px;
@@ -134,5 +134,5 @@
   
   /* Schieber nach rechts bewegen */
   #inspection-toggle input:checked + .slider::before {
-    transform: translateX(19px);
+    transform: translateX(25px);
   }

@@ -1,0 +1,525 @@
+
+
+@font-face {
+    font-family: "800";
+    src: url("./assets/fonts/orbitron-v31-latin-800.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "500";
+    src: url("./assets/fonts/orbitron-v31-latin-500.woff2") format("woff2");
+        
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "regular";
+    src: url("./assets/fonts/orbitron-v31-latin-regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+  /* Allgemeiner Stil */
+  html, body {
+    margin: 0;
+    padding: 0;
+     background-size: cover;  /* Skaliert das Bild so, dass es den gesamten Bildschirm bedeckt */
+    background-position: center;  /* Zentriert das Bild */
+    background-repeat: no-repeat; 
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    font-family: 'regular', sans-serif;
+    background-image: url(./assets/images/bg_facetrack2.webp);
+    font-size: 16;
+    /*backdrop-filter: blur(10px);*/
+  z-index: 11;
+  }
+  
+  
+  
+  /* HEADER */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0;
+    z-index: 500; /* Höchste Priorität für Touch-Gesten */
+    position: relative; /* Stelle sicher, dass der Header vor der Szene liegt */
+    pointer-events: auto !important; /* Touch-Gesten erlauben */
+  }
+  
+  /* Sicherstellen, dass der Header vollständig sichtbar bleibt */
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    padding-left: 11px;
+    margin-top: -20px;
+  }
+  
+  .header-right {
+    display: flex;
+    gap: 0px;
+    align-items: center;
+    padding-right: 15px;
+    margin-top: 0px;
+    font-size: 7pt;
+    color: white;
+    text-shadow:0px 0px 5px rgb(255, 255, 255, 0.5);
+    font-family:'500', sans-serif;
+  }
+  
+  
+  
+  #title {
+    margin-top: 15px;
+    font-family: '800', sans-serif;
+    font-size: 30;
+    text-decoration: none;
+    color: white;
+    text-shadow:0px 0px 5px rgb(255, 255, 255, 0.5);
+    cursor: pointer;
+  
+  }
+  
+  #title:hover {
+    color: rgb(87, 20, 203);
+    text-shadow:0px 0px 5px rgb(87, 20, 203 0.7);
+  }
+  
+  /* A-Scene */
+  a-scene {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  
+    z-index: 10; /* Hintergrund */
+    pointer-events: auto; /* Standardinteraktionen für die Szene */
+  }
+  
+  /* Controls: Buttons und Inspection-Mode */
+  #controls {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+    z-index: 150; /* Direkt unter dem Header */
+    pointer-events: auto; /* Gesten erlauben */
+    margin-top: 10px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+  }
+  
+  .col.left {
+    display: flex; /* Um Inhalte vertikal zu zentrieren */
+    flex-direction:row; /* Ordnet Inhalte innerhalb der Spalte vertikal */
+    align-items: center; /* Zentriert die Icons innerhalb der rechten Spalte */
+    justify-content: space-between; /* Gleicher Abstand zwischen den Reihen */
+    height: 100%; /* Füllt die gesamte Höhe aus */
+    padding-left: 10;
+  }
+  
+  .col.right {
+    display: flex; /* Um Inhalte vertikal zu zentrieren */
+    flex-direction: column; /* Ordnet Inhalte innerhalb der Spalte vertikal */
+    align-items: center; /* Zentriert die Icons innerhalb der rechten Spalte */
+    justify-content: space-between; /* Gleicher Abstand zwischen den Reihen */
+    height: 100%; /* Füllt die gesamte Höhe aus */
+    padding-right: 20px;
+  }
+  
+  /* 🔍 Linke Spalte: Inspection-Mode */
+  .col.left {
+    text-align: left;
+  
+    font-size: 10pt;
+    color: white;
+  }
+  
+  /* 🎨 Rechte Spalte: Info-Button */
+  .col.right {
+    text-align: right;
+    padding-right: 11px;
+  }
+  
+  
+  
+  /* Footer */
+  footer {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+    pointer-events: auto;
+    font-family: 'regular';
+    font-size: 9;
+  }
+  
+  footer a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* ERROR MESSAGE – Engine Failed*/
+  
+  .error-message {
+    position: fixed;
+    background-color: rgb(255, 255, 255, 0.8);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0), 0 4px 10px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(255, 255, 255, 1);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    height: 80%;
+    max-width: 100%;
+    font-size: 12px;
+    line-height: 1.5;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 60px;
+    padding-bottom: 55px;
+    color: rgb(155, 111, 255);
+    border-radius: 10px;
+  z-index: 900;
+  
+  
+  
+  
+  }
+  
+  .hidden {
+   display: none;
+  }
+  
+  
+  
+  /*ANIMATION*/
+  
+  /* Scanner Animation Container */
+  .scanner-container {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+  }
+  
+  /* Punkte-Ring */
+  .point-ring {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    animation: rotateClockwise 30s linear infinite;
+  }
+  
+  .point {
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    animation: pulse var(--pulse-duration) infinite alternate, oscillateRadius var(--oscillation-speed) ease-in-out infinite alternate;
+  }
+  
+  /* Schweif-Ring */
+  .trail-ring {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: rotateClockwise 60s linear infinite;
+  }
+  
+  .trail-point {
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+    animation: oscillateRadius var(--oscillation-speed-fast) ease-in-out infinite alternate;
+  }
+  
+  /* Lichtschweife */
+  .trail {
+    position: absolute;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    transform-origin: left center;
+    border-radius: 2px;
+  }
+  /* Animationen */
+  @keyframes pulse {
+    0% { transform: scale(1.2); }
+    100% { transform: scale(1.5); } /* Nur kleine Skalierung */
+  }
+  
+  @keyframes rotateClockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); } /* Halbe Drehung pro Zyklus */
+  }
+  
+  @keyframes oscillateRadius {
+    0% { transform: scale(0.9); }
+    100% { transform: scale(1.1); } /* Kleinere Schwankung */
+  }
+  
+  
+  
+  #music-toggle {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    padding: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(0, 0, 0, 0.2);
+    visibility: visible;
+    z-index: 600;
+    pointer-events: auto !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #speaker-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* 🔊 Sound Overlay */
+  /* 🔊 Sound Overlay */
+  .audio-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0), 0 4px 10px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px) brightness(1.0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 600;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  }
+  
+  /* Klassen für das Verstecken des Overlays */
+  .audio-overlay.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Deaktiviert Klicks, wenn es ausgeblendet ist */
+  }
+  
+  /* 🔊 Inhalt des Overlays */
+  .audio-overlay-content {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px) brightness(1.1);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: purple;
+    width: 80%;
+    max-width: 400px;
+  
+  }
+  
+  /* 📜 Text */
+  .audio-overlay-content p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  /* 🔘 Button */
+  .audio-overlay-content button,
+  #close-overlay {
+  
+    position: absolute;
+    cursor: pointer;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: rgb(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    outline: none;
+    visibility: visible;
+  padding: 2px;;
+    z-index: 600;
+  
+  }
+  
+  #speaker-icon2 {
+    width: 40px;
+    height: 40px;
+  }
+  
+  
+  .audio-overlay-content button:hover
+  #close-overlay:hover {
+  width: 40px;
+  height: 40px;
+  font-size: 7pt;
+  }
+  
+  
+  #try-on-button {
+    position: absolute;
+    cursor: pointer;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: rgb(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    outline: none;
+  padding: 2px;;
+    z-index: 600;
+  
+  
+  }
+  
+  /*BUTTONS FACEMASK*/
+  
+  .button-container {
+    position: absolute;
+    text-align: center;
+    top: 25%;
+    right: 10px;
+    display: flex;
+
+    z-index: 100;
+    font-size: 7pt;
+
+  }
+  
+  .glassmorphism-button {
+    padding: 10px;
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 171, 164, 0.8);
+    backdrop-filter: blur(10px) brightness(1.1);
+
+    border-radius: 25px 10px 25px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3), 0 4px 10px rgba(70, 70, 70, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    letter-spacing: 0.1em;
+    text-shadow: black;
+  }
+
+/*BUTTON END TRY ON*/
+
+  .end-container {
+    position: absolute;
+    text-align: center;
+    top: 80%;
+   left: 10px;
+    display: flex;
+
+    z-index: 100;
+    font-size: 7pt;
+
+  }
+
+.end-button {
+
+    padding: 10px;
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+    background: rgb(121, 142, 194, 0.5);
+    backdrop-filter: blur(10px) brightness(1.1);
+
+    border-radius: 10px 25px 10px 25px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3), 0 4px 10px rgba(70, 70, 70, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    letter-spacing: 0.1em;
+    text-shadow: black;
+
+
+}
+/* 🌟 Typewriter-Text für "Virtual Try On..." */
+#inspection-text {
+    font-family: '500', sans-serif;
+    font-size: 12px;
+    color: rgb(155, 111, 255);
+    text-shadow: -0.5px 0.5px 1.5px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    border-right: 3px solid rgb(87, 20, 203);
+    padding-right: 5px;
+    animation: blinkCursor 0.5s infinite;
+    transition: opacity 0.5s ease-in-out;
+    padding-left: 10px;
+
+  }
+  
+  @keyframes typeWriter {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+  
+  @keyframes blinkCursor {
+    0% { border-color: rgb(155, 111, 255) }
+    20% { border-color: transparent; }
+    40% { border-color: rgb(155, 111, 255) }
+    60% { border-color: transparent; }
+    80% { border-color: rgb(155, 111, 255) }
+    100% { border-color: transparent; }
+
+  }

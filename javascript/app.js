@@ -46,9 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🔄 Re-Initialize Button mit Sound
   if (reinitializeButton) {
       reinitializeButton.addEventListener("click", () => {
+        const audio = new Audio("./assets/sounds/click.mp3");
+        Haptics.tapFeedback();
           console.log("🔄 Re-Initialize wird ausgeführt...");
-          Haptics.tapFeedback();
-          const audio = new Audio("./assets/sounds/click.wav");
+
+
 
           audio.play().then(() => {
               setTimeout(() => {
@@ -67,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (overlay && acceptButton) {
       if (!localStorage.getItem("audioOverlaySeen")) {
           overlay.style.display = "flex";
+          Haptics.showFeedback();
       }
 
       acceptButton.addEventListener("click", () => {
@@ -108,3 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("❌ FEHLER: Audio-Overlay oder Schließen-Button wurde nicht gefunden!");
   }
 });
+
+
+
+
+

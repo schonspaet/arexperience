@@ -4,20 +4,49 @@ document.addEventListener("DOMContentLoaded", () => {
     const inspectionText = document.getElementById("inspection-text");
     const inspectionMode = document.getElementById("inspection-mode");
     const inspectionToggle = document.getElementById("toggle-inspection");
+    const citiesContainer = document.getElementById("cities-container");
+    const cityToggle = document.getElementById("toggle-city");
+    const cityModel = document.getElementById("city-model");
+
     const musicBtn = document.getElementById("music-toggle");
+
+    const tryOnButton = document.getElementById("try-on-button");
 
     const titleElement = document.getElementById("title"); // Der Titel in der HTML
     let modelNames = {}; // Hier speichern wir die Namen der Modelle
 
 
     // JSON-Daten für Modellnamen laden
-     fetch("/JSON/models.json")
-        .then(response => response.json())
-        .then(data => {
-        modelNames = data;
-        console.log("📦 Modell-Namen geladen:", modelNames);
-    })
-    .catch(error => console.error("⚠️ Fehler beim Laden der Modellnamen:", error));
+    document.getElementById("info-button").addEventListener("click", () => {
+        // 🛠 Stelle sicher, dass der aktuellste `targetIndex` geladen wird
+        let currentTargetIndex = targetIndex;
+        console.log(`ℹ️ Info-Button geklickt – aktueller targetIndex: ${currentTargetIndex}`);
+    
+        fetch("/JSON/info.json")
+            .then((response) => response.json())
+            .then((data) => {
+                let info = data[currentTargetIndex] || data["default"]; // Lädt die aktuellen Infos
+                document.getElementById("info-title").textContent = info.title;
+                document.getElementById("info-text").textContent = info.description;
+                document.getElementById("info-overlay").classList.add("active"); // Zeigt das Info-Overlay
+                console.log(`✅ Info geladen für Index ${currentTargetIndex}:`, info);
+            })
+            .catch((error) => {
+                console.error("❌ Fehler beim Laden der Informationen:", error);
+                document.getElementById("info-title").textContent = "Fehler";
+                document.getElementById("info-text").textContent =
+                    "Es ist ein Fehler aufgetreten. Informationen konnten nicht geladen werden.";
+                document.getElementById("info-overlay").classList.add("active");
+            });
+    });
+    // JSON-Daten für Modellnamen laden
+fetch("/JSON/models.json")
+.then(response => response.json())
+.then(data => {
+    modelNames = data;
+    console.log("📦 Modell-Namen geladen:", modelNames);
+})
+.catch(error => console.error("⚠️ Fehler beim Laden der Modellnamen:", error));
 
 
 
@@ -66,34 +95,75 @@ document.addEventListener("DOMContentLoaded", () => {
         type();
     }
 
-    // 🎭 Glasmorphism-Panel anzeigen (wenn Target gefunden)
-    function showInspectionMode() {
-        console.log("📸 Target gefunden – Zeige Inspection Mode!");
-        inspectionText.style.opacity = "0"; 
+
+
+
+
+
+
+ // CITY PLANE
+
+    //City Plan Anzeigen
+
+    function showCityContainer() {
+        console.log("📸 Target gefunden: Zeige City Plane!");
 
         setTimeout(() => {
-            inspectionText.style.display = "none";
-            inspectionMode.classList.add("active");
-            inspectionMode.style.display = "flex";
-            console.log("✅ Inspection Mode sichtbar.");
+
+            citiesContainer.classList.add("active");
+            citiesContainer.style.display = "block";
+            console.log("✅ City Plane sichtbar.");
         }, 500);
     }
 
     // ⏪ Inspection Mode ausblenden (wenn Target verloren)
-    function hideInspectionMode() {
+    function hideCityContainer() {
         if (isInspecting) return; // Wenn der Inspection Mode aktiv ist, nicht ausblenden!
-        console.log("🔍 Target verloren – Zeige Typewriter erneut.");
-        inspectionMode.classList.remove("active");
+        console.log("🔍 Target verloren – Schlie0e City Plane");
+        citiesContainer.classList.remove("active");
 
         setTimeout(() => {
-            inspectionMode.style.display = "none";
-            musicBtn.style.display = "flex"
-            inspectionText.style.display = "inline-block";
-            inspectionText.style.opacity = "1";
-            typewriterActive = false;
-            console.log("🔄 Typewriter zurückgesetzt.");
+            citiesContainer.style.display = "none";
         }, 500);
     }
+ 
+
+
+
+ // INSPECTION MODE
+
+ //Inspection Anzeigen
+ function showInspectionMode() {
+    console.log("📸 Target gefunden – Zeige Inspection Mode!");
+    inspectionText.style.opacity = "0"; 
+    musicBtn.style.display = "none";
+    setTimeout(() => {
+        inspectionText.style.display = "none";
+        inspectionMode.classList.add("active");
+        inspectionMode.style.display = "flex";
+        console.log("✅ Inspection Mode sichtbar.");
+    }, 500);
+}
+
+//Insepction Ausblenden
+function hideInspectionMode() {
+    if (isInspecting) return; // Wenn der Inspection Mode aktiv ist, nicht ausblenden!
+    console.log("🔍 Target verloren – Zeige Typewriter erneut.");
+    inspectionMode.classList.remove("active");
+
+    setTimeout(() => {
+        inspectionMode.style.display = "none";
+        musicBtn.style.display = "flex"
+        inspectionText.style.display = "inline-block";
+        inspectionText.style.opacity = "1";
+        typewriterActive = false;
+        console.log("🔄 Typewriter zurückgesetzt.");
+    }, 500);
+}
+
+
+
+
 
     // 🛠 Modell vom Tracking lösen (Inspection Mode aktiv)
     function detachModel() {
@@ -141,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // ♻️ Position & Rotation zurücksetzen
         currentModel.setAttribute("position", "0 0 0");
         currentModel.setAttribute("rotation", "0 0 0");
-        currentModel.setAttribute("scale", "0.1 0.1 0.1"); // Setzt Skalierung zurück
+        currentModel.setAttribute("scale", "1 1 1"); // Setzt Skalierung zurück
         currentModel.object3D.position.set(0, 0, 0);
         currentModel.object3D.rotation.set(0, 0, 0);
 
@@ -306,38 +376,59 @@ function disablePinchZoom() {
         }
     });
 
+
+    
+
     // 🔍 Tracking-Events für A-Frame Modelle
     document.querySelectorAll("a-entity[mindar-image-target]").forEach(entity => {
         entity.addEventListener("targetFound", () => {
             Haptics.trackingSuccess();
             Haptics.showFeedback();
-             console.log("🛑 EventListener erkannt: Target gefunden!");
-
-
-            
-
+            console.log("🛑 EventListener erkannt: Target gefunden!");
+        
             currentModel = entity.firstElementChild; // Speichert das erste Modell innerhalb der Tracking-Plane
             showInspectionMode();
-            musicBtn.style.display = "none"
-            //TITEL WIRD GEÄNDERT
-             // 🔄 Titel aktualisieren, falls Modell erkannt wurde
-    const targetIndex = entity.getAttribute("mindar-image-target").targetIndex;
+            musicBtn.style.display = "none";
+        
+            // 🏷 Target Index vor der ersten Nutzung deklarieren & setzen
 
-    if (targetIndex !== null && targetIndex !== undefined) {
-        const newTitle = modelNames[targetIndex] || "🔍 Unbekanntes Modell";
-        console.log(`📢 Modell erkannt: Index ${targetIndex} → ${newTitle}`);
-        if (titleElement) titleElement.textContent = newTitle;
-    }
+            targetIndex = entity.getAttribute("mindar-image-target").targetIndex;
+        
+            // 🎭 "Try On"-Button nur anzeigen, wenn targetIndex === 6
+            if (targetIndex === 6) {
+                tryOnButton.style.display = "block"; // Button sichtbar machen
+                console.log("✅ 'Try On'-Button aktiviert für Index 6");
+            } else {
 
+                tryOnButton.style.display = "none"; // Button verstecken
+            }  
+
+            //CITY MODELLE
+            if (targetIndex === 8 || targetIndex === 9) {
+               showCityContainer();
+            } else {
+                hideCityContainer();
+            }
+        
+            updateTitle(targetIndex);
+            musicBtn.style.display = "none";
         });
+
+
+
+
 
         entity.addEventListener("targetLost", () => {
             Haptics.trackingLost();
             Haptics.abbruch2Feedback();
             console.log("🛑 EventListener erkannt: Target verloren!");
+            inspectionToggle.checked = false;
+            isInspecting = false;
+            hideCityContainer();
             hideInspectionMode();
+            targetIndex = null;
 
-            
+            tryOnButton.style.display = "none"; // Button verstecken
        
 
             // 🔄 Standard-Titel zurücksetzen
@@ -345,8 +436,78 @@ function disablePinchZoom() {
                 console.log("🔄 Tracker verloren. Setze Titel zurück.");
                 titleElement.textContent = modelNames.default || "GATEWAY";
             }
+            
         });
     });
 
     console.log("✅ DOM vollständig geladen!");
+
+
+
+
+    
+
+
+
+
+    //  Event-Listener für den CITY PLANE TOGGLE-Switch
+   cityToggle.addEventListener("change", (event) => {
+    if (event.target.checked) {
+        Haptics.tapFeedback();
+            //hier code
+            switchCity("#solar"); 
+        targetIndex = 9;
+       
+    } else {
+        //hier code
+        Haptics.closeFeedback();
+        
+            switchCity("#cyber");
+
+targetIndex = 8;
+    }
+    console.log(`✅ targetIndex aktualisiert: ${targetIndex}`);
+    updateTitle(targetIndex);
 });
+
+let currentModelIndex = "8"; // Standardmäßig "Cyberpunk City"
+
+function switchCity(cityId) {
+    console.log(`🔄 Wechsle zu ${cityId}`);
+
+    cityModel.setAttribute("gltf-model", cityId);
+
+    // 🟢 `targetIndex` automatisch aus der Modell-ID setzen
+    currentModelIndex = (cityId === "#solar") ? "9" : "8";
+    console.log(`✅ currentModelIndex aktualisiert: ${currentModelIndex}`);
+}
+
+
+
+
+function updateTitle(targetIndex) {
+    if (targetIndex !== null && targetIndex !== undefined) {
+        // 🔄 Prüfen, ob `models.json` geladen wurde
+        if (!modelNames || Object.keys(modelNames).length === 0) {
+            console.warn(`⚠️ Modellnamen sind noch nicht geladen! Warte auf JSON-Daten.`);
+            return; // Verhindert das Setzen eines falschen Titels
+        }
+
+        // 🔄 Prüfen, ob `targetIndex` existiert
+        if (!modelNames[targetIndex]) {
+            console.warn(`⚠️ Kein Titel für Index ${targetIndex} gefunden! Verwende Standard.`);
+        }
+
+        const newTitle = modelNames[targetIndex] || "🔍 Unbekanntes Modell";
+        console.log(`📢 Titel aktualisiert: Index ${targetIndex} → ${newTitle}`);
+
+        if (titleElement) {
+            titleElement.textContent = newTitle;
+        }
+    }
+}
+
+});
+
+
+   

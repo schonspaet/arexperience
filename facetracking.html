@@ -1,0 +1,208 @@
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no", viewport-fit=cover />
+
+    <meta name="theme-color" content="#FFABA4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="debug" content="false">
+    <title></title>
+    <link rel="stylesheet" href="./tryon.css" />
+    <link rel="stylesheet" href="./reinitialize_animation.css">
+    <link rel="stylesheet" href="./info-style.css">
+
+
+
+
+    <script src="./libs/v1_7/aframe-v1.7.0.min.js"></script>
+    <script src="./libs/v1_7/mindar-face-aframe.prod.js"></script>
+    <script src="./libs/v1_6/mindar-image-aframe.prod.js"></script>
+
+
+    <script src="./javascript/reinitialize_animation.js"></script>
+    <script src="./javascript/info-handler.js"></script>
+    <script src="./javascript/haptics.js"></script>
+    <script src="./javascript/background-music.js"></script>
+    <script src="./javascript/tryon.js"></script>
+    
+
+   
+   
+
+
+    <!-- Standard Favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/favicon-192x192.png">
+<link rel="icon" type="image/x-icon" href="./assets/icons/favicon.ico">
+
+<!-- Apple Touch Icon für iOS -->
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="./JSON/manifest.json">
+
+
+  </head>
+  
+ 
+    <!-- HEADER -->
+    <header>
+      <div class="header-container">
+        <div class="header-left">
+          <a id="title" href="./hauptseite.html">GATEWAY</a> 
+        </div>
+        <div class="header-right">
+          <div class="icon-container">
+            <button id="reinitialize">
+              <div class="reinit-container" id="reinit-animation"></div>
+            </button>
+            <span id="reinit-text"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div id="controls">
+      <div class="row">
+          <!-- Linke Spalte: Inspection-Mode -->
+          <div class="col left">
+              <!-- Typewriter-Text (Standard-Anzeige) -->
+              <span id="inspection-text">virtual try on. . .</span>
+  
+              <!-- Inspection Mode Panel (versteckt beim Start) -->
+              <div id="inspection-mode" class="hidden">
+                  <span>Inspection Mode</span>
+                  <label id="inspection-toggle" class="switch">
+                      <input type="checkbox" id="toggle-inspection">
+                      <span class="slider"></span>
+                  </label>
+              </div>
+          </div>
+  
+          <!-- Rechte Spalte: Info-Button mit Glasmorphism -->
+          <div class="col right">
+              <div id="info-container">
+                  <button id="info-button">
+                      <span class="info-icon">i</span>
+                      <span class="info-text">About</span>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <button id="music-toggle">
+    <img id="speaker-icon" src="./assets/images/speaker_on.webp" alt="Speaker Icon">
+</button>
+
+    
+    <!-- INFO-OVERLAY -->
+    <div id="info-overlay">
+      <div class="overlay-content">
+          <h2 id="info-title">Initializing Data Upload…</h2>
+          <p id="info-text">Retrieving Description…</p>
+          <button id="close-info">Terminate</button>
+      </div>
+  </div>
+
+
+
+
+  <body>
+
+    <!-- Buttons für Modell-Wechsel & Beenden des Try-On-Modus -->
+<div class="button-container">
+    <div>
+      <div 
+        button id="maske1-button" class="glassmorphism-button">Phase 1</button>
+        </div>
+    <div 
+        button id="maske2-button" class="glassmorphism-button">Phase 2</button>
+    </div>
+</div>
+</div>
+
+<div class="end-container">
+    <div>
+    </div>
+      <div button id="end-try-on-button" class="end-button" onclick="window.location.href='hauptseite.html'">End Try On</button>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+ <!-- Fehlermeldung als Overlay -->
+  <div id="error-overlay" class="error-message hidden">
+    <p><strong>THE PORTAL COULD NOT BE OPENED</strong><h2p><br>
+      <p><strong></strong><h2p><br>
+  <p><strong>THE PORTAL COULD NOT BE OPENED</strong><h2p><br>
+    
+  <p>Your device or browser may not be compatible with opening the portal to the future.</p>
+  <p>Try again using one of the following browsers:</p><br>
+
+  <p><strong>Safari</strong> (iOS)</p>
+  <p>or</p>
+  <p><strong>Google Chrome</strong></p>
+</div>
+
+
+    <!-- BODY -->
+    <main>
+
+      <div id="glassy-overlay"></div>
+        <!-- SCANNING ANIMATION -->
+        <div class="scanner-container">
+            <div class="point-ring" id="pointRing"></div>
+            <div class="trail-ring" id="trailRing"></div>
+            
+        </div>
+
+
+        <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true">
+            <a-assets>
+                <a-asset-item id="maske1" src="assets/models/maske1.glb"></a-asset-item>
+                <a-asset-item id="maske2" src="assets/models/maske2.glb"></a-asset-item>
+                <a-asset-item id="headModel" src="assets/models/headOccluder.glb"></a-asset-item>
+            </a-assets>
+      
+            <a-camera active="false" position="0 -6 0" look-controls="enabled: false"></a-camera>
+            <a-entity mindar-face-target="anchorIndex: 168">
+              <a-gltf-model mindar-face-occluder position="0 0 0" rotation="0 0 0" scale="0 0 0" src="#headModel"></a-gltf-model>
+            </a-entity> 
+            <a-entity mindar-face-target="anchorIndex: 168">
+              <a-gltf-model fixed-position="true" look-at="[camera]" id="face-model" gltf-model="#maske1" ></a-gltf-model>
+            </a-entity>
+          </a-scene>
+
+
+    </main>
+
+
+
+
+
+    <!-- FOOTER -->
+    <footer>
+      <a href="./impressum.html">Impress</a>
+    </footer>
+
+
+
+
+
+  </body>
+
+</html>
+
+  

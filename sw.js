@@ -32,17 +32,15 @@ const ASSETS_TO_CACHE = [
   "./libs/v1_6/mindar-face-aframe.prod.js",
 
   // Sounds
-  "./assets/sounds/abbruch1.wav",
-  "./assets/sounds/abbruch2.wav",
-  "./assets/sounds/background1.wav",
-  "./assets/sounds/background2.wav",
-  "./assets/sounds/background3.wav",
-  "./assets/sounds/click.wav",
-  "./assets/sounds/close.wav",
-  "./assets/sounds/error.wav",
-  "./assets/sounds/open.wav",
-  "./assets/sounds/show.wav",
-  "./assets/sounds/success.wav",
+  "./assets/sounds/abbruch1.mp3",
+  "./assets/sounds/abbruch2.mp3",
+  "./assets/sounds/background2.mp3",
+  "./assets/sounds/click.mp3",
+  "./assets/sounds/close.mp3",
+  "./assets/sounds/error.mp3",
+  "./assets/sounds/open.mp3",
+  "./assets/sounds/show.mp3",
+  "./assets/sounds/success.mp3",
 
   // Icons & Favicon
   "./assets/icons/favicon-16x16.png",
@@ -57,6 +55,8 @@ const ASSETS_TO_CACHE = [
 
   // Bilder & Hintergrundgrafiken
   "./assets/images/bg_start.webp",
+  "./assets/images/speaker_on.webp",
+  "./assets/images/speaker_off.webp",
 
   // Fonts
   "./assets/fonts/orbitron-v31-latin-800.woff2",
@@ -76,6 +76,8 @@ const ASSETS_TO_CACHE = [
   "./assets/models/solar.glb",
   "./assets/models/cover.glb",
   "./assets/models/scans.glb",
+
+
 
 
   // Tracking-Dateien für MindAR
@@ -155,6 +157,7 @@ self.addEventListener("fetch", (event) => {
               });
           }).catch(() => {
               return caches.match("./index.html");
+              
           });
       })
   );

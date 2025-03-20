@@ -1,71 +1,60 @@
 const Haptics = {
-    playSound: (soundFile) => {
-        const audio = new Audio(`./assets/sounds/${soundFile}`);
-        audio.play().catch((error) => console.error("🔇 Fehler beim Abspielen des Sounds:", error));
+    sounds: {},
+    volume: 0.6, // Globale Lautstärke
+
+    soundFiles: {
+        tap: "click.mp3",
+        close: "close.mp3",
+        open: "open.mp3",
+        show: "show.mp3",
+        abbruch1: "abbruch1.mp3",
+        abbruch2: "abbruch2.mp3",
+        success: "success.mp3",
+        error: "error.mp3",
+        rotate: "rotate.mp3",
+        zoom: "zoom.mp3"
     },
 
-    tapFeedback: () => {
-        Haptics.playSound("click.wav");
-        console.log("Click");
-    },
-    closeFeedback:()=> {
-        Haptics.playSound("close.wav");
-        console.log("Close");
-    },
-
-    openFeedback:()=> {
-        Haptics.playSound("open.wav");
-        console.log("Open");
-    },
-    showFeedback:()=> {
-        Haptics.playSound("show.wav");
-        console.log("SHOW");
+    init: function () {
+        // 🏗️ Lade und speichere Sounds (Sound-Pool)
+        for (const key in this.soundFiles) {
+            this.sounds[key] = new Audio(`./assets/sounds/${this.soundFiles[key]}`);
+            this.sounds[key].volume = this.volume;
+        }
+        console.log("✅ Haptics Sound-Pool geladen!");
     },
 
-    abbruch1Feedback:()=> {
-        Haptics.playSound("abbruch1.wav");
-        console.log("abbruch1");
-    },
-    abbruch2Feedback:()=> {
-        Haptics.playSound("abbruch2.wav");
-        console.log("abbruch2");
-    },
-
-    trackingSuccess: () => {
-        Haptics.playSound("success.wav");
+    playSound: function (key) {
+        if (this.sounds[key]) {
+            this.sounds[key].currentTime = 0; // Zurücksetzen für sofortiges Abspielen
+            this.sounds[key].play().catch((error) => console.error(`🔇 Fehler beim Abspielen (${key}):`, error));
+        } else {
+            console.warn(`⚠️ Sound '${key}' nicht gefunden!`);
+        }
     },
 
-    trackingLost: () => {
-        Haptics.playSound("error.wav");
-    },
-
-    rotationFeedback: () => {
-        Haptics.playSound("rotate.mp3");
-    },
-
-    zoomInFeedback: () => {
-        Haptics.playSound("zoom.mp3");
-    },
-
-    zoomOutFeedback: () => {
-        Haptics.playSound("zoom.mp3");
-    },
-
-    
-    
+    tapFeedback: () => Haptics.playSound("tap"),
+    closeFeedback: () => Haptics.playSound("close"),
+    openFeedback: () => Haptics.playSound("open"),
+    showFeedback: () => Haptics.playSound("show"),
+    abbruch1Feedback: () => Haptics.playSound("abbruch1"),
+    abbruch2Feedback: () => Haptics.playSound("abbruch2"),
+    trackingSuccess: () => Haptics.playSound("success"),
+    trackingLost: () => Haptics.playSound("error"),
+    rotationFeedback: () => Haptics.playSound("rotate"),
+    zoomInFeedback: () => Haptics.playSound("zoom"),
+    zoomOutFeedback: () => Haptics.playSound("zoom")
 };
 
-
-
-
-
+// 🎵 Play Sound and Navigate
 function playSoundThenNavigate(targetURL) {
-    const audio = new Audio("./assets/sound/click.wav");
-    audio.play();
-    
+    Haptics.tapFeedback();
     setTimeout(() => {
         window.location.href = targetURL;
-    }, 100); // 300ms warten, damit der Sound hörbar ist
+    }, 100); // 100ms warten für hörbare Ausgabe
 }
 
-console.log("✅ Haptics.js (Sound aus assets/sound/) geladen!");
+// 🚀 Initialisieren, wenn DOM geladen ist
+document.addEventListener("DOMContentLoaded", () => {
+    Haptics.init();
+});

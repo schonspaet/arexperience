@@ -53,14 +53,14 @@
     <header>
       <div class="header-container">
         <div class="header-left">
-          <a id="title" href="./index.html">GATEWAY</a>
+          <a id="title" href="./index.html">> GATEWAY</a> 
         </div>
         <div class="header-right">
           <div class="icon-container">
             <button id="reinitialize">
               <div class="reinit-container" id="reinit-animation"></div>
             </button>
-            <span>Re-Initialize</span>
+            <span id="reinit-text"></span>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@
   
               <!-- Inspection Mode Panel (versteckt beim Start) -->
               <div id="inspection-mode" class="hidden">
-                  <span>Inspection Mode</span>
+                  <p>Inspection Mode</p>
                   <label id="inspection-toggle" class="switch">
                       <input type="checkbox" id="toggle-inspection">
                       <span class="slider"></span>
@@ -88,30 +88,41 @@
               <div id="info-container">
                   <button id="info-button">
                       <span class="info-icon">i</span>
-                      <span class="info-text">Info</span>
+                      <span class="info-text">About</span>
                   </button>
               </div>
           </div>
       </div>
   </div>
 
-  <div>
-    <button id="music-toggle">🔊</button>
-</div>
-<script>
-    document.getElementById("music-toggle").addEventListener("click", () => {
-       BackgroundMusic.toggle();
-    });
 
-</script>
+
+
+<div id="cities-container" classe="hidden">
+  <p>Choose your Destination</p>
+  <div id="city-plane">
+      <span>CYBERPUNK</span>
+            <label id="city-toggle" class="switch">
+              <input type="checkbox" id="toggle-city">
+              <span class="slider"></span>
+            </label>
+         <span>SOLARPUNK</span>
+  </div>
+        
+</div>
+
+
+  <button id="music-toggle">
+    <img id="speaker-icon" src="./assets/images/speaker_on.webp" alt="Speaker Icon">
+</button>
 
     
     <!-- INFO-OVERLAY -->
     <div id="info-overlay">
       <div class="overlay-content">
-          <h2 id="info-title">Lade Informationen...</h2>
-          <p id="info-text">Beschreibung wird geladen...</p>
-          <button id="close-info">Schließen</button>
+          <h2 id="info-title">Initializing Data Upload…</h2>
+          <p id="info-text">Retrieving Description…</p>
+          <button id="close-info">Terminate</button>
       </div>
   </div>
 
@@ -119,19 +130,33 @@
  <!-- AUDIO-OVERLAY -->
   <div id="audio-overlay" class="audio-overlay">
     <div class="audio-overlay-content">
-      <p>Bitte aktiviere den Ton für ein besseres Erlebnis!</p>
-      <p>Über diesen Button steuerst du die Wiedergabe der Hintergrund Musik</p>
+      <h2>SOUND EXPERIENCE</h2>
+      <p>Enable audio uplink for optimal immersion!</p>
+      <p>Control the ambient soundscape via this sound button below.</p>
     </div>
     <p></p>
   </div>
 
   <div>
     <div>
-      <div><button id="close-overlay">🔊</button></div>
+      <div>
+        <button id="close-overlay">
+          <img id="speaker-icon2" src="./assets/images/speaker_on.webp" alt="Speaker Icon">
+        </button>
+      </div>
     </div>
   </div>
 
 
+
+  <div>
+    <div>
+      <div>
+        <button id="try-on-button" class="glassmorphism-button" onclick="window.location.href='facetracking.html'" style="display: none;">Try On </button>
+      </div>
+    </div>
+  </div>
+ 
 
 
   <body>
@@ -140,7 +165,7 @@
 
  <!-- Fehlermeldung als Overlay -->
   <div id="error-overlay" class="error-message hidden">
-    <p><strong>ERROR</strong><h2p><br>
+    <p><strong>SYSTEM ANOMALY DETECTED</strong><h2p><br>
       <p><strong></strong><h2p><br>
   <p><strong>THE PORTAL COULD NOT BE OPENED</strong><h2p><br>
     
@@ -176,7 +201,7 @@
           <a-asset-item id="energie" src="./assets/models/energy.glb"></a-asset-item>
           <a-asset-item id="system" src="./assets/models/planetsystem.glb"></a-asset-item>
           <a-asset-item id="normal" src="./assets/models/planet_normal.glb"></a-asset-item>
-          <a-asset-item id="zerstoert" src="./assets/models/planetzerstoert.glb"></a-asset-item>
+          <a-asset-item id="zerstoert" src="./assets/models/planet_zerstoert.glb"></a-asset-item>
           <a-asset-item id="krank" src="./assets/models/planet_krank.glb"></a-asset-item>
           <a-asset-item id="maske1" src="./assets/models/maske1.glb"></a-asset-item>
           <a-asset-item id="maske2" src="./assets/models/maske2.glb"></a-asset-item>         
@@ -190,12 +215,14 @@
         <a-camera
           position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable" id="camera"
         ></a-camera>
+
+
   <!-- Flugzeug -->
         <a-entity mindar-image-target="targetIndex: 0">
           <a-entity
             gltf-model="#flugzeug"
             position="0 0 0"
-            scale="0.1 0.1 0.1"
+            scale="1 1 1"
             render-order="99"
           ></a-entity>
         </a-entity>
@@ -256,7 +283,7 @@
   <a-entity
     gltf-model="#maske1"
     position="0 0 0"
-    scale="0.2 0.2 0.2"
+    scale="0.05 0.05 0.05"
   ></a-entity>
 </a-entity>
 
@@ -265,7 +292,7 @@
   <a-entity
     gltf-model="#maske2"
     position="0 0 0"
-    scale="0.2 0.2 0.2"
+    scale="2 2 2"
   ></a-entity>
 </a-entity>
 
@@ -273,6 +300,7 @@
 <!-- City Cyber -->
 <a-entity mindar-image-target="targetIndex: 8">
   <a-entity
+    id="city-model"
     gltf-model="#cyber"
     position="0 0 0"
     scale="0.2 0.2 0.2"
@@ -310,11 +338,13 @@
 
 
       </a-scene>
+
+
     </main>
 
     <!-- FOOTER -->
     <footer>
-      <a href="./impressum.html">Impressum und Datenschutz</a>
+      <a href="./impressum.html">Impress</a>
     </footer>
 
   </body>

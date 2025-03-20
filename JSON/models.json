@@ -1,10 +1,15 @@
 {
-    "0": "Starship",
-    "1": "Planet Earth",
-    "2": "Planet Earth",
-    "3": "Planet Earth",
-    "4": "Energy Core",
-    "5": "Cyber Punk City",
-    "6": "Solar Punk City",
-    "default": "GATEWAY"
+    "0": "> STARSHIP",
+    "1": "> ENERGY CORE",
+    "2": "> SOLARSYSTEM",
+    "3": "> PLANET EARTH",
+    "4": "> PLANET EARTH",
+    "5": "> PLANET EARTH",
+    "6": "> CYBER VISAGE",
+    "7": "> CYBER VISAGE",
+    "8": "> CYBER-PUNK CITY",
+    "9": "> SOLAR-PUNK CITY",
+    "10": "> MAGAZINE COVER",
+    "11": "> IMPRESS",
+    "default": "> GATEWAY"
   }
