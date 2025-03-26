@@ -4,7 +4,7 @@
   "description": "Erlebe futurischtische Augmented Reality in deiner Umgebung.",
   "id": "/",
   "scope": "/",
-  "start_url": "/index.html",
+  "start_url": "https://schonspaet.github.io/arexperience/index.html",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
