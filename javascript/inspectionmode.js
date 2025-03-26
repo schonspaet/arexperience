@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let currentTargetIndex = targetIndex;
         console.log(`ℹ️ Info-Button geklickt – aktueller targetIndex: ${currentTargetIndex}`);
     
-        fetch("./JSON/info.json")
+        fetch("arexperience/JSON/info.json")
             .then((response) => response.json())
             .then((data) => {
                 let info = data[currentTargetIndex] || data["default"]; // Lädt die aktuellen Infos
