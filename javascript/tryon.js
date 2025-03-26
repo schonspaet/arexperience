@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 🛠 Individuelle Einstellungen für jede Maske (Position, Skalierung, Rotation, Titel)
         const maskSettings = {
-            "#maske1": { position: "0 -0.1 -0.6", scale: "5 5 5", rotation: "0 0 0", name: "> UTOPIAN" },
+            "#maske1": { position: "0 -0.1 -0.6", scale: "5.5 5.5 5.5", rotation: "0 0 0", name: "> UTOPIAN" },
             "#maske2": { position: "0 -0.1.2 -0.6", scale: "5.5 5.5 5.5", rotation: "0 0 0", name: "> DYSTOPIAN" }
         };
 
