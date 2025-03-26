@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    const infoButton = document.getElementById("info-button");
+
+
     // 🖱 Info-Button: Daten aus `info.json` laden
     document.getElementById("info-button").addEventListener("click", () => {
         Haptics.tapFeedback();
@@ -34,12 +37,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     "Es ist ein Fehler aufgetreten. Informationen konnten nicht geladen werden.";
                 document.getElementById("info-overlay").classList.add("active");
             });
+
+            infoButton.style.boxShadow = "inset 0 0 20px rgba(255, 255, 255, 0.3), 0 0 10px rgba(70, 70, 70, 0.1)";      
+        infoButton.style.border = "1px solid rgba(255, 255, 255, 0.5  )";  
+        infoButton.style.border = "white"; 
+
     });
+
 
     // ❌ Schließen des Info-Overlays
     document.getElementById("close-info").addEventListener("click", () => {
         Haptics.closeFeedback();
         console.log("INFO OVERLAY GESCHLOSSEN");
         document.getElementById("info-overlay").classList.remove("active");
+
+        infoButton.style.boxShadow = "inset 0 0 20px rgba(255, 255, 255, 0.3), 0 0 10px rgba(70, 70, 70, 0.1)";      
+        infoButton.style.border = "1px solid rgba(255, 255, 255, 0.5  )"; 
+        infoButton.style.color = "white";   
+
     });
 });

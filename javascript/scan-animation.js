@@ -43,23 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  /** 📸 Tracking überwachen */
-  document.querySelectorAll("a-entity[mindar-image-target]").forEach(entity => {
-      entity.addEventListener("targetFound", () => {
-        Haptics.trackingSuccess();
-        Haptics.showFeedback();
-          console.log("📸 Tracking erkannt!");
-          scannerContainer.style.display = "none";
-      });
-
-      entity.addEventListener("targetLost", () => {
-        Haptics.trackingLost();
-        Haptics.abbruch2Feedback();
-          console.log("🔍 Tracking verloren!");
-          scannerContainer.style.display = "flex";
-
-      });
-  });
+ 
 
   /** 🌌 PORTAL-EFFEKTE (Punkte & Schweife) */
   const pointRing = document.getElementById("pointRing");

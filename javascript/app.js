@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const acceptButton = document.getElementById("accept-audio");
   const musicButton = document.getElementById("music-toggle");
 
+
   // 🛠 Fehler vermeiden: Prüfe, ob die Elemente existieren, bevor du auf ihre Eigenschaften zugreifst
   if (!scene) {
       console.warn("⚠ `a-scene` nicht gefunden!");
@@ -65,50 +66,49 @@ document.addEventListener("DOMContentLoaded", () => {
       console.warn("⚠ `reinitialize` Button nicht gefunden!");
   }
 
-  // 🎭 Audio-Overlay verwalten
-  if (overlay && acceptButton) {
-      if (!localStorage.getItem("audioOverlaySeen")) {
-          overlay.style.display = "flex";
-          Haptics.showFeedback();
-      }
+  // 🎭 Audio-Overlay verwalten (einmalig)
+if (overlay && acceptButton && closeOverlayBtn) {
+    const overlaySeen = localStorage.getItem("audioOverlaySeen");
+    Haptics.showFeedback();
+    if (!overlaySeen) {
+      overlay.style.display = "flex";
+      overlay.classList.remove("hide");
+      closeOverlayBtn.style.display = "block";
+      acceptButton.style.display = "none";
 
+      console.log("🔊 Zeige Audio-Overlay");
+  
+      // 🎧 Akzeptieren
       acceptButton.addEventListener("click", () => {
-          overlay.style.display = "none";
-          localStorage.setItem("audioOverlaySeen", "true");
-
-          if (!BackgroundMusic.isPlaying) {
-              BackgroundMusic.play();
-          }
+        overlay.classList.add("hide");
+        overlay.style.display = "none";
+        closeOverlayBtn.style.display = "none";
+        audioOverlay.style.display = "none"
+        localStorage.setItem("audioOverlaySeen", "true");
+  
+        if (!BackgroundMusic.isPlaying) BackgroundMusic.play();
+  
+        console.log("🎧 Audio aktiviert & Overlay dauerhaft deaktiviert");
       });
-
-      setTimeout(() => {
-          overlay.style.display = "none";
-          localStorage.setItem("audioOverlaySeen", "true");
-      }, 10000);
-  } else {
-      console.warn("⚠ Audio-Overlay oder Accept-Button nicht gefunden!");
-  }
-
-  // 🎛 Schließen des Overlays
-  if (audioOverlay && closeOverlayBtn) {
-      console.log("🎭 Overlay gefunden! Erzwinge Anzeige...");
-      audioOverlay.classList.remove("hide");
-      Haptics.showFeedback();
-
+  
+      // ❌ Schließen (ohne Musik)
       closeOverlayBtn.addEventListener("click", () => {
-          Haptics.tapFeedback();
-          BackgroundMusic.play();
-          console.log("🔇 Overlay wird geschlossen...");
-          audioOverlay.classList.add("hide");
-
-          setTimeout(() => {
-              audioOverlay.style.display = "none";
-              closeOverlayBtn.style.display = "none";
-              console.log("✅ Overlay erfolgreich entfernt!");
-          }, 300);
+        Haptics.tapFeedback();
+        overlay.classList.add("hide");
+        overlay.style.display = "none";
+        closeOverlayBtn.style.display = "none";
+        localStorage.setItem("audioOverlaySeen", "true");
+        console.log("🔇 Overlay manuell geschlossen & deaktiviert");
+        BackgroundMusic.play();
       });
-  } else {
-      console.error("❌ FEHLER: Audio-Overlay oder Schließen-Button wurde nicht gefunden!");
+  
+    
+    } else {
+      overlay.style.display = "none";
+      overlay.classList.add("hide");
+      closeOverlayBtn.style.display = "none";
+      console.log("🔕 Overlay wurde bereits gesehen – wird nicht erneut angezeigt");
+    }
   }
 });
 

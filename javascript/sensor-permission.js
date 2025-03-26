@@ -17,8 +17,9 @@ function askForSensorPermission() {
     permissionOverlay.id = "permission-overlay";
     permissionOverlay.innerHTML = `
         <div class="permission-box">
+            <h2>SENSOR PERMISSION</h2>
             <p>This app requires access to motion sensors.</p>
-            <button id="grant-permission">Activate Sensors</button>
+            <button id="grant-permission">GRANT PERMISSION</button>
         </div>
     `;
     document.body.appendChild(permissionOverlay);

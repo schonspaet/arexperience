@@ -11,8 +11,6 @@ const Haptics = {
         abbruch2: "abbruch2.mp3",
         success: "success.mp3",
         error: "error.mp3",
-        rotate: "rotate.mp3",
-        zoom: "zoom.mp3"
     },
 
     init: function () {

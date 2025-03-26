@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const faceModel = document.getElementById("face-model");
         const titleElement = document.getElementById("title"); // Der Titel in der HTML// Der Titel in der HTML
 
+        const infoButton = document.getElementById("info-button");
+        const endButton = document.getElementById("end-try-on-button");
+
+
 
         console.log("🔍 DOM vollständig geladen!");
 
@@ -16,17 +20,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
         console.log("✅ Alle benötigten Elemente gefunden!");
 
+       
+        
 
 
 
 
         // 🛠 Individuelle Einstellungen für jede Maske (Position, Skalierung, Rotation, Titel)
         const maskSettings = {
-            "#maske1": { position: "0 -0.8 0.3", scale: "0.08 0.08 0.08", rotation: "0 0 0", name: "UTOPIAN" },
-            "#maske2": { position: "0 -0.6 0", scale: "0.06 0.06 0.08", rotation: "0 0 0", name: "DYSTOPIAN" }
+            "#maske1": { position: "0 -0.1 -0.6", scale: "6 6 6", rotation: "0 0 0", name: "> UTOPIAN" },
+            "#maske2": { position: "0 -0.1.2 -0.6", scale: "5.5 5.5 5.5", rotation: "0 0 0", name: "> DYSTOPIAN" }
         };
 
+        function cleanupOldModel(model) {
+            if (!model || !model.object3D) return;
+        
+            model.object3D.traverse((child) => {
+                if (child.material) {
+                    if (child.material.map) child.material.map.dispose();
+                    child.material.dispose();
+                }
+                if (child.geometry) {
+                    child.geometry.dispose();
+                }
+            });
+        
+            console.log("🧹 Modellressourcen freigegeben");
+        }
+
+
         function switchMask(maskId) {
+            cleanupOldModel(faceModel);
+
             console.log(`🔄 Wechsle zu ${maskSettings[maskId].name}`);
 
             faceModel.setAttribute("gltf-model", maskId);
@@ -42,16 +67,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Standardmäßig Maske 1 setzen
         switchMask("#maske1");
+        infoButton.style.boxShadow = "inset 0 0 10px rgba(132, 0, 255, 0.3), 0 0 10px rgba(132, 0, 255, 0.4)";      
+        infoButton.style.border = "1px solid rgba(155, 111, 255, 0.5  )";  
+
+
 
         // Event-Listener für Maske 1
         maske1Button.addEventListener("click", () => {
             switchMask("#maske1");
+            infoButton.style.boxShadow = "inset 0 0 10px rgba(132, 0, 255, 0.3), 0 0 10px rgba(132, 0, 255, 0.4)";      
+            infoButton.style.border = "1px solid rgba(155, 111, 255, 0.5  )";  
+            Haptics.tapFeedback();
+
         });
 
         // Event-Listener für Maske 2
         maske2Button.addEventListener("click", () => {
             switchMask("#maske2");
+            infoButton.style.boxShadow = "inset 0 0 10px rgba(132, 0, 255, 0.3), 0 0 10px rgba(132, 0, 255, 0.4)";      
+            infoButton.style.border = "1px solid rgba(155, 111, 255, 0.5  )";  
+            Haptics.tapFeedback();
+
         });
+        
 
         console.log("✅ Try-On-Script erfolgreich geladen!");
     }, 500);
@@ -63,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🖱 Info-Button: Daten aus `info.json` laden und anzeigen
     document.getElementById("info-button").addEventListener("click", () => {
-        fetch("/JSON/info.json")
+        fetch("./JSON/info.json")
             .then((response) => response.json())
             .then((data) => {
                 let info = data[currentMaskIndex] || data["default"]; // Fallback auf Standard-Text
@@ -85,6 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("close-info").addEventListener("click", () => {
         console.log("INFO OVERLAY GESCHLOSSEN");
         document.getElementById("info-overlay").classList.remove("active");
+        infoButton.style.boxShadow = "inset 0 0 20px rgba(255, 255, 255, 0.3), 0 0 10px rgba(70, 70, 70, 0.1)";      
+        infoButton.style.border = "1px solid rgba(255, 255, 255, 0.5  )";  
+
     });
 
     // 🏷️ Aktualisiert `currentMaskIndex`, wenn die Maske gewechselt wird

@@ -17,7 +17,7 @@
 
     <script src="./libs/v1_6/aframe-v1.6.0.min.js"></script>
     <script src="./libs/v1_6/mindar-face-aframe.prod.js"></script>
-    <script src="./libs/v1_6/mindar-image-aframe.prod.js"></script>
+    <script src="./libs/v1_6/mindar-image-aframe.prod.js"></script> 
 
 
     <script src="./javascript/app.js"></script>
@@ -113,7 +113,7 @@
 
 
   <button id="music-toggle">
-    <img id="speaker-icon" src="./assets/images/speaker_on.webp" alt="Speaker Icon">
+    <img id="speaker-icon" src="./assets/images/speaker_off.webp" alt="Speaker Icon">
 </button>
 
     
@@ -122,20 +122,20 @@
       <div class="overlay-content">
           <h2 id="info-title">Initializing Data Upload…</h2>
           <p id="info-text">Retrieving Description…</p>
-          <button id="close-info">Terminate</button>
+          <button id="close-info">TERMINATE</button>
       </div>
   </div>
 
 
  <!-- AUDIO-OVERLAY -->
-  <div id="audio-overlay" class="audio-overlay">
-    <div class="audio-overlay-content">
-      <h2>SOUND EXPERIENCE</h2>
-      <p>Enable audio uplink for optimal immersion!</p>
-      <p>Control the ambient soundscape via this sound button below.</p>
-    </div>
-    <p></p>
+ <div id="audio-overlay" class="audio-overlay">
+  <div class="audio-overlay-content">
+    <h2>SOUND EXPERIENCE</h2>
+    <p>Enable audio uplink for optimal immersion!</p>
+    <p>Control the ambient soundscape via <br> this sound button below.</p>
+    <button id="accept-audio"></button>
   </div>
+</div>
 
   <div>
     <div>
@@ -157,6 +157,45 @@
     </div>
   </div>
  
+  
+
+
+
+  <div id="nineButtons-container1">
+    <h2>TRADE-OFF<br><span>Could You Give This Up?</span></h2>
+     
+    <div class="reihe">
+      <div class="column1">
+        <button data-wert="+1"><img src="./assets/icons/icon1a.png" alt="Icon 1A"></button>
+
+        <button data-wert="-1"><img src="./assets/icons/icon1b.png" alt="Icon 1B"></button>
+      </div>
+      <div class="column2">
+        <button data-wert="-1"><img src="./assets/icons/icon2b.png" alt="Icon 2A"></button>
+
+        <button data-wert="+1"><img src="./assets/icons/icon2a.png" alt="Icon 2B"></button>
+      </div>
+      <div class="column3">
+        <button data-wert="-1"><img src="./assets/icons/icon3b.png" alt="Icon 3A"></button>
+      
+        <button data-wert="+1"><img src="./assets/icons/icon3a.png" alt="Icon 3B"></button>
+      </div>
+      <div class="column4">
+        <button data-wert="+1"><img src="./assets/icons/icon4b.png" alt="Icon 4A"></button>
+
+        <button data-wert="-1"><img src="./assets/icons/icon4a.png" alt="Icon 4B"></button>
+      </div>
+      <div class="column5">
+        <button data-wert="-1"><img src="./assets/icons/icon5a.png" alt="Icon 5A"></button>
+
+        <button data-wert="+1"><img src="./assets/icons/icon5b.png" alt="Icon 5B"></button>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
 
   <body>
@@ -209,6 +248,7 @@
           <a-asset-item id="solar" src="./assets/models/solar.glb"></a-asset-item>
           <a-asset-item id="cover" src="./assets/models/cover.glb"></a-asset-item>
           <a-asset-item id="scans" src="./assets/models/scans.glb"></a-asset-item>
+          <a-asset-item id="gesund" src="./assets/models/planet_gesund.glb"></a-asset-item>
          
         </a-assets>
 
@@ -232,7 +272,7 @@
           <a-entity
             gltf-model="#energie"
             position="0 0 0"
-            scale="1 1 1"
+            scale="0.5 0.5 0.5"
           ></a-entity>
         </a-entity>
 
@@ -250,9 +290,10 @@
   <!-- Erde normal -->
           <a-entity mindar-image-target="targetIndex: 3">
             <a-entity
+            id="planet-model"
               gltf-model="#normal"
               position="0 0 0"
-              scale="0.2 0.2 0.2"
+              scale="1 1 1"
             ></a-entity>
           </a-entity>
 
@@ -273,7 +314,19 @@
         <a-entity
           gltf-model="#krank"
           position="0 0 0"
-          scale="0.2 0.2 0.2"
+          scale="1 1 1"
+        ></a-entity>
+      </a-entity>
+
+
+          
+
+      <!-- Erde krank -->
+      <a-entity mindar-image-target="targetIndex: 12">
+        <a-entity
+          gltf-model="#gesund"
+          position="0 0 0"
+          scale="1 1 1 1"
         ></a-entity>
       </a-entity>
 
@@ -283,7 +336,7 @@
   <a-entity
     gltf-model="#maske1"
     position="0 0 0"
-    scale="0.05 0.05 0.05"
+    scale="3 3 3"
   ></a-entity>
 </a-entity>
 
@@ -303,7 +356,7 @@
     id="city-model"
     gltf-model="#cyber"
     position="0 0 0"
-    scale="0.2 0.2 0.2"
+    scale="3 3 3"
   ></a-entity>
 </a-entity>
 
@@ -312,7 +365,7 @@
   <a-entity
     gltf-model="#solar"
     position="0 0 0"
-    scale="0.2 0.2 0.2"
+    scale="3 3 3"
   ></a-entity>
 </a-entity>
 
@@ -323,7 +376,7 @@
   <a-entity
     gltf-model="#cover"
     position="0 0 0"
-    scale="0.2 0.2 0.2"
+    scale="4.5 4.5 4.5"
   ></a-entity>
 </a-entity>
 
@@ -332,7 +385,7 @@
   <a-entity
     gltf-model="#scans"
     position="0 0 0"
-    scale="0.2 0.2 0.2"
+    scale="1 1 1"
   ></a-entity>
 </a-entity>
 

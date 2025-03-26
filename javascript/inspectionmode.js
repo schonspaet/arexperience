@@ -7,6 +7,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const citiesContainer = document.getElementById("cities-container");
     const cityToggle = document.getElementById("toggle-city");
     const cityModel = document.getElementById("city-model");
+    const scannerContainer = document.querySelector(".scanner-container");
+
+    const infoButton = document.getElementById("info-button");
+    const tradeOff = document.getElementById("nineButtons-container1");
+
+    const columns = document.querySelectorAll("[class^='column']");
+  const buttonWerte = {}; // Speichert aktuelle Werte pro Kategorie
+
+
+    const body = document.body;
+
+
 
     const musicBtn = document.getElementById("music-toggle");
 
@@ -16,13 +28,48 @@ document.addEventListener("DOMContentLoaded", () => {
     let modelNames = {}; // Hier speichern wir die Namen der Modelle
 
 
+
+    
+    columns.forEach((column, index) => {
+        const buttons = column.querySelectorAll("button");
+      
+        buttons.forEach(button => {
+          button.addEventListener("click", () => {
+            // Deselect alle Buttons in dieser Kategorie
+            buttons.forEach(btn => btn.classList.remove("selected"));
+            button.classList.add("selected");
+            Haptics.tapFeedback();
+      
+            // Wert aus data-wert lesen
+            const wert = parseInt(button.getAttribute("data-wert"));
+            const kategorie = `column${index + 1}`;
+            buttonWerte[kategorie] = wert;
+      
+            // 🔁 Wenn erste Eingabe, verstecke den Start-Planet
+            if (!firstInputDone && (targetIndex === "3" || targetIndex === 3)) {
+              firstInputDone = true;
+      
+              const planetModel = document.getElementById("planet-model");
+              if (planetModel) {
+                planetModel.setAttribute("visible", "false");
+                console.log("🌀 Erste Auswahl – 'normaler Planet' ausgeblendet.");
+              }
+            }
+      
+            // Score und Modell aktualisieren
+            updateScore();
+          });
+        });
+      });
+
+    
     // JSON-Daten für Modellnamen laden
     document.getElementById("info-button").addEventListener("click", () => {
         // 🛠 Stelle sicher, dass der aktuellste `targetIndex` geladen wird
         let currentTargetIndex = targetIndex;
         console.log(`ℹ️ Info-Button geklickt – aktueller targetIndex: ${currentTargetIndex}`);
     
-        fetch("/JSON/info.json")
+        fetch("./JSON/info.json")
             .then((response) => response.json())
             .then((data) => {
                 let info = data[currentTargetIndex] || data["default"]; // Lädt die aktuellen Infos
@@ -40,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
     // JSON-Daten für Modellnamen laden
-fetch("/JSON/models.json")
+fetch("./JSON/models.json")
 .then(response => response.json())
 .then(data => {
     modelNames = data;
@@ -58,6 +105,7 @@ fetch("/JSON/models.json")
     let startDistance = 0;
     let currentScale = 1;
     let baseScale = { x: 1, y: 1, z: 1 };
+    let firstInputDone = false; // Steuert, ob der Startplanet schon ersetzt wurde
 
 
     if (!inspectionText || !inspectionMode || !inspectionToggle) {
@@ -252,7 +300,7 @@ function hideInspectionMode() {
             currentRotationX += deltaY; // Inkrementiere die X-Rotation
             currentRotationY += deltaX; // Inkrementiere die Y-Rotation
     
-            model.setAttribute("rotation", `${currentRotationX} ${currentRotationY} 0`); // Setze die neue Rotation des Modells
+            model.setAttribute("rotation", `${currentRotationX} ${currentRotationY} 0`); // Setze die neue Rotation des Modells (x,y,z)
 
             
     
@@ -384,16 +432,34 @@ function disablePinchZoom() {
         entity.addEventListener("targetFound", () => {
             Haptics.trackingSuccess();
             Haptics.showFeedback();
+
+    
             console.log("🛑 EventListener erkannt: Target gefunden!");
         
             currentModel = entity.firstElementChild; // Speichert das erste Modell innerhalb der Tracking-Plane
             showInspectionMode();
             musicBtn.style.display = "none";
+            scannerContainer.style.display = "none";
+
+            infoButton.style.boxShadow = "inset 0 0 10px rgba(132, 0, 255, 0.3), 0 0 10px rgba(132, 0, 255, 0.4)";      
+            infoButton.style.border = "1px solid rgba(155, 111, 255, 0.5  )";  
+
         
             // 🏷 Target Index vor der ersten Nutzung deklarieren & setzen
-
             targetIndex = entity.getAttribute("mindar-image-target").targetIndex;
         
+        
+            
+
+             // 🎭 "Try On"-Button nur anzeigen, wenn targetIndex === 6
+             if (targetIndex === 3) {
+                tradeOff.style.display = "block"; // TRADE OFF EINBLENDEN
+                console.log("TRADE OFF ANGEZEIGT");
+            } else {
+
+                tradeOff.style.display = "none";  // TRADE OFF AUSBLENDEN
+            }  
+
             // 🎭 "Try On"-Button nur anzeigen, wenn targetIndex === 6
             if (targetIndex === 6) {
                 tryOnButton.style.display = "block"; // Button sichtbar machen
@@ -409,6 +475,13 @@ function disablePinchZoom() {
             } else {
                 hideCityContainer();
             }
+            // 🖼️ HINTERGRUNDBILD für Index 10 ausblenden
+            if (targetIndex === 10) {
+            document.body.classList.add("hide-background");
+            console.log("🕳️ Hintergrundbild für Index 10 ausgeblendet");
+            } else {
+            document.body.classList.remove("hide-background");
+            }
         
             updateTitle(targetIndex);
             musicBtn.style.display = "none";
@@ -421,6 +494,8 @@ function disablePinchZoom() {
         entity.addEventListener("targetLost", () => {
             Haptics.trackingLost();
             Haptics.abbruch2Feedback();
+            document.body.classList.remove("hide-background");
+            
             console.log("🛑 EventListener erkannt: Target verloren!");
             inspectionToggle.checked = false;
             isInspecting = false;
@@ -428,9 +503,40 @@ function disablePinchZoom() {
             hideInspectionMode();
             targetIndex = null;
 
+            tradeOff.style.display = "none";
             tryOnButton.style.display = "none"; // Button verstecken
+            scannerContainer.style.display = "flex";
+
+            infoButton.style.boxShadow = "inset 0 0 20px rgba(255, 255, 255, 0.3), 0 0 10px rgba(70, 70, 70, 0.1)";      
+            infoButton.style.border = "1px solid rgba(255, 255, 255, 0.5  )";  
+
+         
+
        
 
+// Lösche unnötige Texturen aus WebGL-Cache
+if (currentModel?.object3D) {
+    currentModel.object3D.traverse((child) => {
+        if (child.material) {
+            if (child.material.map) child.material.map.dispose();
+            if (child.material.lightMap) child.material.lightMap.dispose();
+            if (child.material.aoMap) child.material.aoMap.dispose();
+            if (child.material.emissiveMap) child.material.emissiveMap.dispose();
+            if (child.material.bumpMap) child.material.bumpMap.dispose();
+            if (child.material.normalMap) child.material.normalMap.dispose();
+            if (child.material.displacementMap) child.material.displacementMap.dispose();
+            if (child.material.roughnessMap) child.material.roughnessMap.dispose();
+            if (child.material.metalnessMap) child.material.metalnessMap.dispose();
+            if (child.material.alphaMap) child.material.alphaMap.dispose();
+            if (child.material.envMap) child.material.envMap.dispose();
+            child.material.dispose();
+        }
+        if (child.geometry) {
+            child.geometry.dispose();
+        }
+    });
+
+}
             // 🔄 Standard-Titel zurücksetzen
             if (titleElement) {
                 console.log("🔄 Tracker verloren. Setze Titel zurück.");
@@ -483,8 +589,6 @@ function switchCity(cityId) {
 }
 
 
-
-
 function updateTitle(targetIndex) {
     if (targetIndex !== null && targetIndex !== undefined) {
         // 🔄 Prüfen, ob `models.json` geladen wurde
@@ -506,6 +610,33 @@ function updateTitle(targetIndex) {
         }
     }
 }
+
+
+
+//BERECHNUNG FÜR PLANET
+function updateScore() {
+    const werte = Object.values(buttonWerte);
+    const score = werte.reduce((sum, val) => sum + val, 0);
+  
+    let modelId = "#krank"; // Default fallback
+    if (score >= 4) {
+      modelId = "#gesund";
+    } else if (score >= -2) {
+      modelId = "#krank";
+    } else {
+      modelId = "#zerstoert";
+    }
+  
+    // Nur wenn Target 3 aktiv ist
+    if (targetIndex === "3" || targetIndex === 3) {
+      const planetModel = document.getElementById("planet-model");
+      if (planetModel) {
+        planetModel.setAttribute("gltf-model", modelId);
+        planetModel.setAttribute("visible", "true");
+        console.log("🌍 Modell aktualisiert auf:", modelId);
+      }
+    }
+  }
 
 });
 

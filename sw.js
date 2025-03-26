@@ -4,6 +4,7 @@ const ASSETS_TO_CACHE = [
   "./index.html",
   "./hauptseite.html",
   "./impressum.html",
+  "./facetracking.html",
 
   // CSS
   "./style.css",
@@ -11,6 +12,8 @@ const ASSETS_TO_CACHE = [
   "./reinitialize_animation.css",
   "./inspectionmode.css",
   "./info-style.css",
+  "./tryon.css",
+
 
   // JavaScript-Dateien
   "./javascript/app.js",
@@ -21,13 +24,23 @@ const ASSETS_TO_CACHE = [
   "./javascript/inspectionmode.js",
   "./javascript/haptics.js",
   "./javascript/background-music.js",
+  "./javascript/tryon.js",
 
 
   // Bibliotheken
+
+  "./libs/v1_7/aframe-v1.7.0.js",
+  "./libs/v1_7/aframe-v1.7.0.js.map",
   "./libs/v1_7/aframe-v1.7.0.min.js",
+  "./libs/v1_7/aframe-v1.7.0.min.js.map",
+  "./libs/v1_7/aframe-v1.7.0.module.min.js",
+  "./libs/v1_7/aframe-v1.7.0.module.min.js.map",
   "./libs/v1_7/mindar-image-aframe.prod.js",
   "./libs/v1_7/mindar-face-aframe.prod.js",
+  "./libs/v1_6/aframe-v1.6.0.js",
+  "./libs/v1_6/aframe-v1.6.0.js.map",
   "./libs/v1_6/aframe-v1.6.0.min.js",
+  "./libs/v1_6/aframe-v1.6.0.min.js.map",
   "./libs/v1_6/mindar-image-aframe.prod.js",
   "./libs/v1_6/mindar-face-aframe.prod.js",
 
@@ -48,12 +61,26 @@ const ASSETS_TO_CACHE = [
   "./assets/icons/favicon-192x192.png",
   "./assets/icons/favicon-512x512.png",
   "./assets/icons/apple-touch-icon.png",
+  "./assets/icons/favicon.ico",
+  "./assets/icons/icon1a.png",
+  "./assets/icons/icon1b.png",
+  "./assets/icons/icon2a.png",
+  "./assets/icons/icon2b.png",
+  "./assets/icons/icon3a.png",
+  "./assets/icons/icon3b.png",
+  "./assets/icons/icon4a.png",
+  "./assets/icons/icon4b.png",  
+  "./assets/icons/icon5a.png",
+  "./assets/icons/icon5b.png",
 
   //Screenshots
   "./assets/screenshots/screenshot1.png",
   "./assets/screenshots/screenshot2.png",
 
   // Bilder & Hintergrundgrafiken
+  "./assets/images/bg_start.webp",
+  "./assets/images/bg_facetrack.webp",
+  "./assets/images/bg_facetrack2.webp",
   "./assets/images/bg_start.webp",
   "./assets/images/speaker_on.webp",
   "./assets/images/speaker_off.webp",
@@ -70,12 +97,14 @@ const ASSETS_TO_CACHE = [
   "./assets/models/planet_normal.glb",
   "./assets/models/planet_zerstoert.glb",
   "./assets/models/planet_krank.glb",
+  "./assets/models/planet_gesund.glb",
   "./assets/models/maske1.glb",
   "./assets/models/maske2.glb",
   "./assets/models/cyber.glb",
   "./assets/models/solar.glb",
   "./assets/models/cover.glb",
   "./assets/models/scans.glb",
+  "./assets/models/headOccluder.glb",
 
 
 
@@ -93,29 +122,24 @@ const ASSETS_TO_CACHE = [
 // INSTALL: Cache alle wichtigen Dateien
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return Promise.all(
-        ASSETS_TO_CACHE.map((url) => {
-          // Führe den fetch-Vorgang durch und logge den Status
-          return fetch(url)
-            .then((response) => {
-              if (response.ok) {
-                console.log(`Caching successful: ${url}`);
-                return cache.put(url, response);
-              } else {
-                console.error(`Failed to fetch: ${url}`);
-                return Promise.reject(`Failed to fetch: ${url}`);
-              }
-            })
-            .catch((error) => {
-              console.error(`Failed to cache ${url}:`, error);
-            });
-        })
-      );
-    })
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      for (let i = 0; i < ASSETS_TO_CACHE.length; i++) {
+        try {
+          const response = await fetch(ASSETS_TO_CACHE[i]);
+          if (response.ok) {
+            await cache.put(ASSETS_TO_CACHE[i], response);
+            console.log(`✅ Erfolgreich gecached: ${ASSETS_TO_CACHE[i]}`);
+          } else {
+            console.warn(`⚠️ Fehler beim Cachen: ${ASSETS_TO_CACHE[i]}`);
+          }
+        } catch (error) {
+          console.error(`❌ Netzwerkfehler bei ${ASSETS_TO_CACHE[i]}:`, error);
+        }
+      }
+    })()
   );
   self.skipWaiting();
-
 });
 
 // ACTIVATE: Alte Caches löschen
@@ -152,9 +176,15 @@ self.addEventListener("fetch", (event) => {
               }
 
               return caches.open("static-v4").then((cache) => {
-                  cache.put(event.request, networkResponse.clone());
-                  return networkResponse;
-              });
+                const url = event.request.url;
+                if (url.includes("mediapipe") || url.includes("cdn.jsdelivr.net")) {
+                    console.warn(`🚫 Mediapipe/CDN Datei nicht gecached: ${url}`);
+                    return networkResponse; // Datei wird nicht gespeichert, nur weitergeleitet
+                } else {
+                    cache.put(event.request, networkResponse.clone());
+                    return networkResponse;
+                }
+            });
           }).catch(() => {
               return caches.match("./index.html");
               

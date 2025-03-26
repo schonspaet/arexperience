@@ -1,68 +1,68 @@
 {
   "default": {
-    "title": "WELCOME TO THE AR-EXPERIENCE",
-    "description": "Use your device to discover what's hinding behind the portal. Once a model is detected, relevant information will be displayed here."
+    "title": "WELCOME TO THE AR EXPERIENCE",
+    "description": "Use your device to reveal what's hiding behind the portal. Once a model is detected, interactive information will appear here."
   },
   "0": {
-    "title": "Starhip Model",
-    "description": "Das Starship  ist ein futuristisches Flugzeug, das innovative Technologie und Design vereint. Aktivieren Sie den Inspection-Mode, um Details wie die Energiequelle und das Steuerungssystem zu erkunden."
-  },
-  "2": {
-    "title": "Planetary System Model",
-    "description": "Das Planetary System Model zeigt die komplexe Struktur und Dynamik eines futuristischen Sonnensystems. Nutzen Sie den Inspection-Mode, um die Planetenbahnen und deren spezielle Eigenschaften näher zu betrachten."
+    "title": "Future Vehicle",
+    "description": "The Starship is a next-generation aircraft combining advanced technology with aerodynamic design. Activate Inspection Mode to explore its energy source and navigation system."
   },
   "1": {
-    "title": "Energy Model",
-    "description": "Das Energy Model repräsentiert eine hochmoderne Energieinfrastruktur, die auf erneuerbaren Ressourcen basiert. Aktivieren Sie den Inspection-Mode, um die Details der Energieerzeugung und -speicherung zu sehen."
+    "title": "Energy Generator",
+    "description": "This model represents a futuristic energy infrastructure powered by renewable sources. Use Inspection Mode to examine how energy is generated, stored, and distributed."
+  },
+  "2": {
+    "title": "In Sun's Orbit",
+    "description": "The Planetary System model showcases the structure and dynamics of a speculative solar system. Activate Inspection Mode to explore the orbital paths and unique characteristics of each celestial body."
   },
   "3": {
-    "title": "Planet Gesund",
-    "description": "Das Spacecar ist ein schnelles und effizientes Transportmittel für interstellare Reisen. Mit dem Inspection-Mode können Sie Details wie die Antriebssysteme und die Passagierkabine erkunden."
+    "title": "The Future of Planet Earth",
+    "description": "This model represents Earth in a possible future. Your choices influence its state. Select at least three values from different life categories. Based on your combination, the planet will appear as healthy, sick, or destroyed. Activate Inspection Mode to examine each version in detail."
   },
   "4": {
-    "title": "Planet Zerstört",
-    "description": "Das Planet D Model zeigt eine künstlerische Darstellung eines terraformierten Planeten. Aktivieren Sie den Inspection-Mode, um Details wie Städte, natürliche Ressourcen und die Atmosphäre zu entdecken."
+    "title": "Planet: Destroyed",
+    "description": "This version of Earth shows a collapsed, post-apocalyptic world. Explore the environmental degradation, craters, and remnants of civilization in Inspection Mode."
   },
   "5": {
-    "title": "PLanet Krank",
-    "description": "Kranker Planet."
+    "title": "Planet: Sick",
+    "description": "A damaged Earth, struggling with pollution and imbalance. Activate Inspection Mode to observe signs of ecological stress and resource depletion."
+  },
+  "12": {
+    "title": "Planet: Normal",
+    "description": "A balanced, yet vulnerable planet. This is the neutral default state. Use Inspection Mode to observe its current stability."
   },
   "6": {
-    "title": "Maske 1",
-    "description": "Maske 1."
+    "title": "Phase 1 Mask",
+    "description": "This mask represents the utopian version of the future. Tap the 'Phase 2' button to switch to the dystopian counterpart."
   },
   "7": {
-    "title": "Maske 2",
-    "description": "Maske 2."
+    "title": "Phase 2 Mask",
+    "description": "This mask visualizes a dystopian interpretation of the future. Tap the 'Phase 1' button to return to the utopian variant."
   },
-  
   "8": {
-    "title": "CyberPunk City",
-    "description": "Cyberpunk City."
+    "title": "Cyberpunk City",
+    "description": "A dark, neon-lit metropolis driven by high technology, corporate dominance, and social decay. Use the toggle to switch to the Solarpunk City model."
   },
   "9": {
-    "title": "Solar Punk",
-    "description": "Solar Punk City."
+    "title": "Solarpunk City",
+    "description": "A bright, green city of the future based on sustainability, community, and clean energy. Use the toggle to switch to the Cyberpunk City model."
   },
- 
   "10": {
-    "title": "Cover",
-    "description": "Das Magazin Cover."
+    "title": "Magazine Cover",
+    "description": "A reinterpretation of the magazine cover through today’s lens—blending current aesthetics with imagined futuristic elements. It reflects our present-day vision of the future and acts as a symbolic entry point to the AR experience."
   },
-
   "11": {
-    "title": "Scans",
-    "description": "Rondel mit den Scans"
-  },
+  "title": "Creators of the Future",
+  "description": "This 3D scan gallery showcases the creators behind this magazine and WebAR experience. All individuals are part of the course 'Design & AI' at the Faculty of Media Production (FB2), Technische Hochschule OWL. Explore the team shaping visions of futurism in Inspection Mode."
+},
   "city": {
     "8": {
       "title": "Cyberpunk City",
-      "description": "Eine dunkle, neonbeleuchtete Stadt voller High-Tech und Chaos."
+      "description": "A chaotic, neon-drenched future of technology and inequality. Use the toggle to explore its Solarpunk counterpart."
     },
     "9": {
       "title": "Solarpunk City",
-      "description": "Eine grüne, nachhaltige Zukunftsstadt mit erneuerbaren Energien."
+      "description": "A green utopia powered by renewables and harmony with nature. Use the toggle to return to the Cyberpunk vision."
     }
   }
-
 }
